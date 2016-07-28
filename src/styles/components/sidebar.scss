@@ -1,9 +1,27 @@
 .sidebar-wrapper {
   position: absolute;
-  margin: 20px;
+  margin: 10px;
   width: 300px;
   border-radius: 2px;
+  z-index: 1;
+  height: 100vh;
+  top: 0;
+  transition: width 0.3s;
+
   .sidebar {
-    padding: 20px;
+    padding: 15px;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: 640px) {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    .sidebar {
+      border-radius: 0;
+    }
   }
 }

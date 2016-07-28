@@ -3,7 +3,12 @@
   margin: 0;
   .map {
     background: $brand-primary;
-    padding: 20px;
     height: 100vh;
+    .map-canvas {
+      height: 100%;
+    }
+    @media screen and (max-width: 640px) {
+      height: 55vh;
+    }
   }
 }
