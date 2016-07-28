@@ -1,0 +1,9 @@
+.map-wrapper {
+  padding: 0;
+  margin: 0;
+  .map {
+    background: $brand-primary;
+    padding: 20px;
+    height: 100vh;
+  }
+}

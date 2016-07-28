@@ -3,14 +3,14 @@ import Sidebar from 'components/Sidebar';
 import Map from 'components/Map';
 
 export const CoreLayout = () => (
-    <div className='container text-center'>
-      <Sidebar />
-      <Map />
+    <div className="core-layout">
+      <div className="sidebar-wrapper">
+        <Sidebar />
+      </div>
+      <div className="map-wrapper">
+        <Map />
+      </div>
     </div>
 );
-
-CoreLayout.propTypes = {
-  children: React.PropTypes.element.isRequired
-};
 
 export default CoreLayout;

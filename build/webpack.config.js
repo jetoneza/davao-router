@@ -25,13 +25,14 @@ const webpackConfig = {
 // ------------------------------------
 const APP_ENTRY_PATHS = [
   'babel-polyfill',
+  'bootstrap-loader',
   paths.client('main.js')
 ]
 
 webpackConfig.entry = {
   app: __DEV__
-    ? APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
-    : APP_ENTRY_PATHS,
+      ? APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
+      : APP_ENTRY_PATHS,
   vendor: config.compiler_vendor
 }
 
@@ -63,31 +64,35 @@ webpackConfig.plugins = [
 
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
+  webpackConfig.cache = true
+  webpackConfig.debug = true
+  webpackConfig.output.pathinfo = true
+  webpackConfig.devtool = 'eval'
   webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
   )
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false
-      }
-    })
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          unused: true,
+          dead_code: true,
+          warnings: false
+        }
+      })
   )
 }
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
   webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor']
+      })
   )
 }
 
@@ -95,27 +100,27 @@ if (!__TEST__) {
 // Pre-Loaders
 // ------------------------------------
 /*
-[ NOTE ]
-We no longer use eslint-loader due to it severely impacting build
-times for larger projects. `npm run lint` still exists to aid in
-deploy processes (such as with CI), and it's recommended that you
-use a linting plugin for your IDE in place of this loader.
+ [ NOTE ]
+ We no longer use eslint-loader due to it severely impacting build
+ times for larger projects. `npm run lint` still exists to aid in
+ deploy processes (such as with CI), and it's recommended that you
+ use a linting plugin for your IDE in place of this loader.
 
-If you do wish to continue using the loader, you can uncomment
-the code below and run `npm i --save-dev eslint-loader`. This code
-will be removed in a future release.
+ If you do wish to continue using the loader, you can uncomment
+ the code below and run `npm i --save-dev eslint-loader`. This code
+ will be removed in a future release.
 
-webpackConfig.module.preLoaders = [{
-  test: /\.(js|jsx)$/,
-  loader: 'eslint',
-  exclude: /node_modules/
-}]
+ webpackConfig.module.preLoaders = [{
+ test: /\.(js|jsx)$/,
+ loader: 'eslint',
+ exclude: /node_modules/
+ }]
 
-webpackConfig.eslint = {
-  configFile: paths.base('.eslintrc'),
-  emitWarning: __DEV__
-}
-*/
+ webpackConfig.eslint = {
+ configFile: paths.base('.eslintrc'),
+ emitWarning: __DEV__
+ }
+ */
 
 // ------------------------------------
 // Loaders
@@ -136,10 +141,10 @@ webpackConfig.module.loaders = [{
     }
   }
 },
-{
-  test: /\.json$/,
-  loader: 'json'
-}]
+  {
+    test: /\.json$/,
+    loader: 'json'
+  }]
 
 // ------------------------------------
 // Style Loaders
@@ -157,7 +162,7 @@ const PATHS_TO_TREAT_AS_CSS_MODULES = [
 // If config has CSS modules enabled, treat this project's styles as CSS modules.
 if (config.compiler_css_modules) {
   PATHS_TO_TREAT_AS_CSS_MODULES.push(
-    paths.client().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
+      paths.client().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
   )
 }
 
@@ -203,6 +208,7 @@ webpackConfig.module.loaders.push({
   loaders: [
     'style',
     BASE_CSS_LOADER,
+    'resolve-url',
     'postcss',
     'sass?sourceMap'
   ]
@@ -213,6 +219,7 @@ webpackConfig.module.loaders.push({
   loaders: [
     'style',
     BASE_CSS_LOADER,
+    'resolve-url',
     'postcss'
   ]
 })
@@ -245,13 +252,28 @@ webpackConfig.postcss = [
 // File loaders
 /* eslint-disable */
 webpackConfig.module.loaders.push(
-  { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
+    {
+      test: /\.woff(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
+    },
+    {
+      test: /\.woff2(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
+    },
+    {
+      test: /\.otf(\?.*)?$/,
+      loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+    },
+    {
+      test: /\.ttf(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
+    },
+    {test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]'},
+    {
+      test: /\.svg(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
+    },
+    {test: /\.(png|jpg)$/, loader: 'url?limit=8192'}
 )
 /* eslint-enable */
 
@@ -264,7 +286,7 @@ webpackConfig.module.loaders.push(
 if (!__DEV__) {
   debug('Apply ExtractTextPlugin to CSS loaders.')
   webpackConfig.module.loaders.filter((loader) =>
-    loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
+      loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
   ).forEach((loader) => {
     const [first, ...rest] = loader.loaders
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
@@ -272,9 +294,9 @@ if (!__DEV__) {
   })
 
   webpackConfig.plugins.push(
-    new ExtractTextPlugin('[name].[contenthash].css', {
-      allChunks: true
-    })
+      new ExtractTextPlugin('[name].[contenthash].css', {
+        allChunks: true
+      })
   )
 }
 
