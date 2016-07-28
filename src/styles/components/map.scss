@@ -4,6 +4,8 @@
   .map {
     background: $brand-primary;
     height: 100vh;
+    transition: height 0.75s;
+
     .map-canvas {
       height: 100%;
     }
