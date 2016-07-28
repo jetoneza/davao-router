@@ -4,12 +4,34 @@
   width: 300px;
   border-radius: 2px;
   z-index: 1;
-  height: 100vh;
   top: 0;
   transition: width 0.3s;
 
   .sidebar {
-    padding: 15px;
+    .item-header {
+      border-bottom: 1px solid $input-border;
+      color: $brand-success;
+    }
+    .item-clickable {
+      &:hover {
+        background: $brand-primary;
+        color: #fff;
+        border: 1px solid $brand-primary;
+      }
+    }
+    .routes-list {
+      overflow: scroll;
+      max-height: 87vh;
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+      .item-styled {
+        &:first-child {
+          border-top: none;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+      }
+    }
   }
 
   @media screen and (max-width: 800px) {
@@ -22,6 +44,9 @@
     width: 100%;
     .sidebar {
       border-radius: 0;
+      .routes-list {
+        max-height: 35vh;
+      }
     }
   }
 }

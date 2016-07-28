@@ -1,5 +1,50 @@
 .item {
-  border-radius: 3px;
+  position: relative;
+  @include clearfix;
+  padding: 10px 20px;
+}
+
+.item-clickable {
+  cursor: pointer;
+  &:hover {
+    background-color: $brand-info-tint;
+  }
+}
+
+.item-header,
+.item-footer {
+  padding: 20px;
+}
+
+.item-header {
+  font-size: 17px;
+}
+
+.item-styled {
   border: 1px solid $input-border;
   background-color: #fff;
+  border-bottom: 0;
+  @include clearfix;
+  &:first-child {
+    border-top-right-radius: $input-border-radius;;
+    border-top-left-radius: $input-border-radius;;
+  }
+  &.item-last,
+  &:last-child {
+    border-bottom-right-radius: $input-border-radius;;
+    border-bottom-left-radius: $input-border-radius;;
+    border-bottom: 1px solid darken($input-border, 4%);
+  }
+  &.item-style-small {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top-style: dashed;
+    font-size: 14px;
+  }
+}
+
+.item-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
