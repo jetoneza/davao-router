@@ -5,6 +5,7 @@
   border-radius: 2px;
   z-index: 1;
   top: 0;
+  bottom: 0;
   transition: width 0.3s;
 
   .sidebar {
@@ -21,7 +22,10 @@
     }
     .routes-list {
       overflow: scroll;
-      max-height: 87vh;
+      position: absolute;
+      width: 100%;
+      top: 66px;
+      bottom: 0;
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 2px;
       .item-styled {
@@ -45,6 +49,8 @@
     .sidebar {
       border-radius: 0;
       .routes-list {
+        position: relative;
+        top: 0;
         max-height: 35vh;
       }
     }
