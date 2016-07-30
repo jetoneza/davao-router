@@ -3,14 +3,16 @@ import React, {Component} from 'react';
 class Sidebar extends Component {
 
   handleRouteClick = (route) => {
-    window.alert(`You have selected ${route.name}!`);
+    this.props.setRoute(route);
   }
 
   renderRoutesList = () => {
-    const {routes} = this.props.app;
+    const {routes, activeRoute} = this.props.app;
     return routes.map((route) => {
-      return <div className="item item-styled item-clickable" key={route.id}
-                  onClick={(e) => {this.handleRouteClick(route)}}>{route.name}</div>
+      return <div
+          className={`item item-styled item-clickable ${route.id === activeRoute.id ? 'active' : ''}`}
+          key={route.id}
+          onClick={(e) => {this.handleRouteClick(route)}}>{route.name}</div>
     });
   }
 

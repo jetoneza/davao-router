@@ -1,7 +1,18 @@
+import {
+    SET_ROUTE,
+} from 'actions/app';
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
-const ACTION_HANDLERS = {};
+const ACTION_HANDLERS = {
+  [SET_ROUTE]: (state, action) => {
+    return {
+      ...state,
+      activeRoute: action.payload,
+    };
+  },
+};
 
 const routes = [
   {
@@ -79,6 +90,7 @@ const routes = [
 // ------------------------------------
 const initialState = {
   routes,
+  activeRoute: null,
 };
 export default function appReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];

@@ -7,11 +7,15 @@ import {connect} from 'react-redux';
 
 import CoreLayout from 'layouts/CoreLayout';
 
+import {setRoute} from 'actions/app';
+
 /*  Object of action creators (can also be function that returns object).
  Keys will be passed as props to presentational components. Here we are
  implementing our wrapper around increment; the component doesn't care   */
 
-const mapActionCreators = {};
+const mapActionCreators = {
+  setRoute,
+};
 
 const mapStateToProps = (state) => ({
   app: state.app,
