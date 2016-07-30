@@ -10,7 +10,7 @@ class Sidebar extends Component {
     const {routes, activeRoute} = this.props.app;
     return routes.map((route) => {
       return <div
-          className={`item item-styled item-clickable ${route.id === activeRoute.id ? 'active' : ''}`}
+          className={`item item-styled item-clickable ${activeRoute && route.id === activeRoute.id ? 'active' : ''}`}
           key={route.id}
           onClick={(e) => {this.handleRouteClick(route)}}>{route.name}</div>
     });

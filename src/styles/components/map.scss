@@ -8,6 +8,13 @@
 
     .map-canvas {
       height: 100%;
+      .map-marker-desc {
+        color: $brand-primary;
+        font-size: 1.2em;
+        font-weight: 400;
+        margin: 0 0 2px;
+        padding: 0;
+      }
     }
     @media screen and (max-width: 640px) {
       height: 55vh;
