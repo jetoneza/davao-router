@@ -22,7 +22,7 @@
       }
     }
     .routes-list {
-      overflow: scroll;
+      overflow: auto;
       position: absolute;
       width: 100%;
       top: 66px;
@@ -36,6 +36,10 @@
           border-top-right-radius: 0;
         }
       }
+    }
+
+    .routes-list::-webkit-scrollbar {
+      display: none;
     }
   }
 
