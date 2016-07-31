@@ -19,7 +19,7 @@ class Sidebar extends Component {
   render() {
     return (
         <div className="sidebar">
-          <div className="item item-styled item-header">Routes</div>
+          <div className="item item-styled item-header">Davao Routes</div>
           <div className="item-group routes-list">
             {this.renderRoutesList()}
           </div>
