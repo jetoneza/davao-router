@@ -24,12 +24,23 @@
           top: 19px;
           left: 8px;
           z-index: 10;
-          height: 15px;
+        }
+
+        .icon-delete-search {
+          position: absolute;
+          top: 19px;
+          right: 8px;
+          z-index: 10;
+          color: lighten($gray, 3%);
+          cursor: pointer;
+          &:hover {
+            color: $gray-dark;
+          }
         }
 
         .form-control-search {
           font-size: 13px;
-          padding-left: 30px;
+          padding: 0 30px;
           height: 35px;
           color: $brand-success;
           margin-top: 10px;

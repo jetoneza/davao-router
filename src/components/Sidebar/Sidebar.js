@@ -69,7 +69,10 @@ class Sidebar extends Component {
     );
     const search = isListRoute ? (
         <div className="input-group">
-          <span className="glyphicon glyphicon-search icon-search"></span>
+          <span className="glyphicon glyphicon-search icon-search"/>
+          {this.state.search == '' ? null :
+              <span className="glyphicon glyphicon-remove-circle icon-delete-search"
+                    onClick={(e) => {this.setState({search: ''})}}/>}
           <input type="text" className="form-control form-control-search"
                  value={this.state.search}
                  onChange={(e) => {this.setState({search: e.target.value})}}
