@@ -9,6 +9,7 @@ class Sidebar extends Component {
 
   state = {
     listType: listType.LIST_TYPE_ROUTES,
+    search: '',
   }
 
 
@@ -20,7 +21,13 @@ class Sidebar extends Component {
 
   renderRoutesList = () => {
     const {routes, activeRoute} = this.props.app;
-    return routes.map((route) => {
+
+    const filteredRoutes = routes.filter(route => {
+      const name = route.name.toLowerCase();
+      return name.includes(this.state.search.toLocaleLowerCase());
+    });
+
+    return filteredRoutes.map((route) => {
       return <div
           className={`item item-styled item-clickable ${activeRoute && route.id === activeRoute.id ? 'active' : ''}`}
           key={route.id}
@@ -60,17 +67,33 @@ class Sidebar extends Component {
           <span className="glyphicon glyphicon-menu-left"></span> Back
         </div>
     );
+    const search = isListRoute ? (
+        <div className="input-group">
+          <span className="glyphicon glyphicon-search icon-search"></span>
+          <input type="text" className="form-control form-control-search"
+                 value={this.state.search}
+                 onChange={(e) => {this.setState({search: e.target.value})}}
+                 placeholder="Type to Search" autoCapitalize="off" spellCheck="false"/>
+        </div>
+    ) : null;
+
+    const height = isListRoute ? '110px' : '65px'
+
+    const listStyle = {
+      top: height
+    };
+
+    const headerStyle = {
+      height
+    };
+
     return (
         <div className="sidebar">
-          <div className="item item-styled item-header">
+          <div className="item item-styled item-header" style={headerStyle}>
             Davao Routes
-            <div className="input-group">
-              <span className="glyphicon glyphicon-search icon-search"></span>
-              <input type="text" className="form-control form-control-search"
-                     placeholder="Type to Search" autoCapitalize="off" spellCheck="false"/>
-            </div>
+            {search}
           </div>
-          <div className="item-group routes-list">
+          <div className="item-group routes-list" style={listStyle}>
             {backItem}
             {list}
           </div>

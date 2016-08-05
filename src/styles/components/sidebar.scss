@@ -13,6 +13,8 @@
       border: none;
       border-bottom: 1px solid $input-border;
       color: $brand-success;
+      height: 110px;
+      transition: height 0.3s;
       .input-group {
         position: relative;
         width: 100%;
@@ -63,6 +65,7 @@
       bottom: 0;
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 2px;
+      transition: top 0.3s;
       .item-styled-back {
         color: $brand-success;
         background: $brand-success-tint;
