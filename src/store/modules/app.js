@@ -1,5 +1,6 @@
 import {
     SET_ROUTE,
+    SET_MARKER,
 } from 'actions/app';
 
 // TODO: Implement server side copy of routes.json.
@@ -17,6 +18,12 @@ const ACTION_HANDLERS = {
       activeRoute: action.payload,
     };
   },
+  [SET_MARKER]: (state, action) => {
+    return {
+      ...state,
+      activeMarker: action.payload,
+    };
+  },
 };
 
 // ------------------------------------
@@ -25,6 +32,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   routes,
   activeRoute: routes[0],
+  activeMarker: null,
 };
 export default function appReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];

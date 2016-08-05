@@ -14,6 +14,7 @@ class Sidebar extends Component {
 
   handleRouteClick = (route) => {
     this.props.setRoute(route);
+    this.props.setMarker(null);
     this.setState({listType: listType.LIST_TYPE_MARKERS});
   }
 
@@ -27,24 +28,22 @@ class Sidebar extends Component {
     });
   }
 
-  handleMarkerClick = (marker) => {
-    // TODO: handle marker click here...
+  handleMarkerClick = (index) => {
+    this.props.setMarker(index);
   }
 
   renderMarkers = () => {
-    const {activeRoute} = this.props.app;
+    const {activeRoute, activeMarker} = this.props.app;
 
     if (!activeRoute || !activeRoute.markers) {
       return null;
     }
 
-    let index = 0;
-    return activeRoute.markers.map((marker) => {
-      index++;
+    return activeRoute.markers.map((marker, index) => {
       return <div
-          className={`item item-styled item-clickable`}
+          className={`item item-styled item-clickable ${activeMarker === index ? 'active' : ''}`}
           key={index}
-          onClick={(e) => {this.handleMarkerClick(marker)}}>{marker.desc}</div>
+          onClick={(e) => {this.handleMarkerClick(index)}}>{marker.desc}</div>
     });
   }
 

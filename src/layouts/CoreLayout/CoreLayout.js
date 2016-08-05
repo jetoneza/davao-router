@@ -5,7 +5,7 @@ import Map from 'components/Map';
 export const CoreLayout = (props) => (
     <div className="core-layout">
       <div className="map-wrapper">
-        <Map activeRoute={props.app.activeRoute}/>
+        <Map activeRoute={props.app.activeRoute} activeMarker={props.app.activeMarker}/>
       </div>
       <div className="sidebar-wrapper">
         <Sidebar {...props}/>

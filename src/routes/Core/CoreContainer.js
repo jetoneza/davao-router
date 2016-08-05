@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 
 import CoreLayout from 'layouts/CoreLayout';
 
-import {setRoute} from 'actions/app';
+import {setRoute, setMarker} from 'actions/app';
 
 /*  Object of action creators (can also be function that returns object).
  Keys will be passed as props to presentational components. Here we are
@@ -15,6 +15,7 @@ import {setRoute} from 'actions/app';
 
 const mapActionCreators = {
   setRoute,
+  setMarker,
 };
 
 const mapStateToProps = (state) => ({

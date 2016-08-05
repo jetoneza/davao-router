@@ -1,5 +1,6 @@
 ///// Constants /////
 export const SET_ROUTE = 'DR:SET_ROUTE';
+export const SET_MARKER = 'DR:SET_MARKER';
 
 ///// Actions /////
 /**
@@ -12,6 +13,14 @@ export function setRoute(route) {
   };
 }
 
+export function setMarker(index) {
+  return {
+    type: SET_MARKER,
+    payload: index,
+  }
+}
+
 export const actions = {
   setRoute,
+  setMarker,
 };

@@ -15,8 +15,14 @@ class Map extends Component {
     this.initMap();
   }
 
-  componentDidUpdate() {
-    this.loadMap();
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeRoute !== this.props.activeRoute) {
+      this.loadMap();
+    }
+
+    if (prevProps.activeMarker !== this.props.activeMarker) {
+      this.zoomToMarker();
+    }
   }
 
   initMap = () => {
@@ -35,7 +41,6 @@ class Map extends Component {
     const {mapCanvas} = this.refs;
     const Google = this.google;
     const DAVAO = {lat: 7.057180, lng: 125.599512};
-    const {activeRoute} = this.props;
     let center = DAVAO;
     let zoom = 13;
 
@@ -101,7 +106,7 @@ class Map extends Component {
       const mapMarker = new Google.maps.Marker(options);
 
       mapMarker.addListener('click', (e) => {
-        this.displayMarker(e, marker);
+        this.displayMarker(marker, mapMarker);
       });
 
       this.markers.push(mapMarker);
@@ -123,13 +128,23 @@ class Map extends Component {
     }
   }
 
-  displayMarker = (e, marker) => {
+  zoomToMarker() {
+    const {activeRoute, activeMarker} = this.props;
+    if (activeRoute && activeRoute.path) {
+      const marker = activeRoute.markers[activeMarker];
+      const mapMarker = this.markers[activeMarker];
+      const center = {lat: marker.lat, lng: marker.lng};
+      const zoom = 16;
+      this.map.setOptions({center, zoom});
+      this.displayMarker(marker, mapMarker);
+    }
+  }
+
+  displayMarker = (marker, mapMarker) => {
     const content = `<h1 class="map-marker-desc">${marker.desc}</h1>`;
 
     this.mapInfo.setContent(content);
-    this.mapInfo.setPosition(e.latLng);
-
-    this.mapInfo.open(this.map);
+    this.mapInfo.open(this.map, mapMarker);
   }
 
   render() {
