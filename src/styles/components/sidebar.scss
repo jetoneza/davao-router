@@ -13,6 +13,33 @@
       border: none;
       border-bottom: 1px solid $input-border;
       color: $brand-success;
+      .input-group {
+        position: relative;
+        width: 100%;
+
+        .icon-search {
+          position: absolute;
+          top: 19px;
+          left: 8px;
+          z-index: 10;
+          height: 15px;
+        }
+
+        .form-control-search {
+          font-size: 13px;
+          padding-left: 30px;
+          height: 35px;
+          color: $brand-success;
+          margin-top: 10px;
+          box-shadow: none;
+          border-radius: 2px;
+          &:focus {
+            border: 1px solid $brand-success;
+            background: #fff;
+            box-shadow: none;
+          }
+        }
+      }
     }
     .item-clickable {
       color: $brand-primary;
@@ -32,7 +59,7 @@
       overflow: auto;
       position: absolute;
       width: 100%;
-      top: 65px;
+      top: 110px;
       bottom: 0;
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 2px;

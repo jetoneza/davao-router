@@ -62,7 +62,14 @@ class Sidebar extends Component {
     );
     return (
         <div className="sidebar">
-          <div className="item item-styled item-header">Davao Routes</div>
+          <div className="item item-styled item-header">
+            Davao Routes
+            <div className="input-group">
+              <span className="glyphicon glyphicon-search icon-search"></span>
+              <input type="text" className="form-control form-control-search"
+                     placeholder="Type to Search" autoCapitalize="off" spellCheck="false"/>
+            </div>
+          </div>
           <div className="item-group routes-list">
             {backItem}
             {list}
