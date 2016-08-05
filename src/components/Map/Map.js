@@ -135,7 +135,8 @@ class Map extends Component {
       const mapMarker = this.markers[activeMarker];
       const center = {lat: marker.lat, lng: marker.lng};
       const zoom = 16;
-      this.map.setOptions({center, zoom});
+      this.map.setOptions({zoom});
+      this.map.panTo(center);
       this.displayMarker(marker, mapMarker);
     }
   }
