@@ -88,7 +88,7 @@ class Map extends Component {
         icon: {
           path: Google.maps.SymbolPath.CIRCLE,
           scale: 5,
-          strokeColor: '#e74c3c',
+          strokeColor: '#2ecc71',
           strokeWeight: 4,
           fillColor: '#fff',
           fillOpacity: 0.7
