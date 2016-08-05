@@ -130,7 +130,7 @@ class Map extends Component {
 
   zoomToMarker() {
     const {activeRoute, activeMarker} = this.props;
-    if (activeRoute && activeRoute.path) {
+    if (activeRoute && activeRoute.path && activeMarker !== null) {
       const marker = activeRoute.markers[activeMarker];
       const mapMarker = this.markers[activeMarker];
       const center = {lat: marker.lat, lng: marker.lng};

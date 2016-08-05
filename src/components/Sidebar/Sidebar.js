@@ -15,7 +15,6 @@ class Sidebar extends Component {
 
   handleRouteClick = (route) => {
     this.props.setRoute(route);
-    this.props.setMarker(null);
     this.setState({listType: listType.LIST_TYPE_MARKERS});
   }
 
@@ -55,6 +54,7 @@ class Sidebar extends Component {
   }
 
   handleBackClick = () => {
+    this.props.setMarker(null);
     this.setState({listType: listType.LIST_TYPE_ROUTES});
   }
 
