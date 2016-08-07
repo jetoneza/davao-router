@@ -47,27 +47,29 @@ class Sidebar extends Component {
 
     return activeRoute.markers.map((marker, index) => {
       return <div
-          className={`item item-styled item-clickable ${activeMarker === index ? 'active' : ''}`}
+          className={`item item-styled item-clickable item-styled-marker ${activeMarker === index ? 'active' : ''}`}
           key={index}
-          onClick={(e) => {this.handleMarkerClick(index)}}>{marker.desc}</div>
+          onClick={(e) => {this.handleMarkerClick(index)}}>
+        {marker.desc}
+        <div className="indicator">
+          <span className="indicator-line"/>
+          <span className="indicator-bullet"/>
+        </div>
+      </div>
     });
   }
 
-  handleBackClick = () => {
-    this.props.setMarker(null);
-    this.setState({listType: listType.LIST_TYPE_ROUTES});
-  }
-
-  render() {
-    const isListRoute = this.state.listType == listType.LIST_TYPE_ROUTES;
-    const list = isListRoute ? this.renderRoutesList() : this.renderMarkers();
-    const backItem = isListRoute ? null : (
+  renderBackItem = () => {
+    return (
         <div className="item item-styled item-clickable item-styled-back"
              onClick={::this.handleBackClick}>
           <span className="glyphicon glyphicon-menu-left"></span> Back
         </div>
     );
-    const search = isListRoute ? (
+  }
+
+  renderSearchInput = () => {
+    return (
         <div className="input-group">
           <span className="glyphicon glyphicon-search icon-search"/>
           {this.state.search == '' ? null :
@@ -78,7 +80,19 @@ class Sidebar extends Component {
                  onChange={(e) => {this.setState({search: e.target.value})}}
                  placeholder="Type to Search" autoCapitalize="off" spellCheck="false"/>
         </div>
-    ) : null;
+    );
+  }
+
+  handleBackClick = () => {
+    this.props.setMarker(null);
+    this.setState({listType: listType.LIST_TYPE_ROUTES});
+  }
+
+  render() {
+    const isListRoute = this.state.listType == listType.LIST_TYPE_ROUTES;
+    const list = isListRoute ? this.renderRoutesList() : this.renderMarkers();
+    const backItem = isListRoute ? null : this.renderBackItem();
+    const search = isListRoute ? this.renderSearchInput() : null;
 
     const height = isListRoute ? '110px' : '65px'
 

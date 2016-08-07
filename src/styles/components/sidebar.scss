@@ -67,6 +67,42 @@
       &:hover {
         padding-left: 30px;
       }
+      &.item-styled-marker {
+        .indicator {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 25px;
+          .indicator-line {
+            width: 2px;
+            height: 100%;
+            background: $brand-success;
+            display: block;
+          }
+          .indicator-bullet {
+            background: #fff;
+            border: 3px solid $brand-success;
+            width: 10px;
+            height: 10px;
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 19px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            transition: width 0.3s, height 0.3s, right 0.3s;
+          }
+        }
+
+        &.active {
+          .indicator-bullet {
+            width: 14px;
+            height: 14px;
+            right: 17px;
+          }
+        }
+      }
     }
     .routes-list {
       overflow: auto;
@@ -124,7 +160,7 @@
       .routes-list {
         position: relative;
         top: 0 !important;
-        max-height: 35vh;
+        max-height: 28vh;
       }
     }
   }
